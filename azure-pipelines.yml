@@ -1,0 +1,21 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+pr:
+  - master
+
+pool:
+  name: 'NCC Front End Training'
+
+steps:
+- script: |
+    export NVM_DIR="$HOME/.nvm" && . "$NVM_DIR/nvm.sh"
+    [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"
+    [ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"
+    npm i
+    npm run lint
+
+  displayName: 'Run lint script'
+
