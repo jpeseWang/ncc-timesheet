@@ -1,6 +1,6 @@
 /* eslint-disable @typescript-eslint/space-before-function-paren */
 /* eslint-disable multiline-ternary */
-import React, { Fragment, useContext } from 'react'
+import React, { Fragment, useContext, useState } from 'react'
 import { Disclosure } from '@headlessui/react'
 import { Bars3Icon, XMarkIcon } from '@heroicons/react/24/outline'
 import { Link, useNavigate } from 'react-router-dom'
@@ -21,19 +21,22 @@ function classNames(...classes: any[]) {
 }
 
 export const Header = (): JSX.Element => {
+  const [currentNavItem, setCurrentNavItem] = useState('')
+  const [isActive, setIsActive] = useState(false)
   const { logout } = useContext(UserContext)
   const nav = useNavigate()
-  const handleActive = (e: any, item: any): void => {
-    e.preventDefault()
-    navigation.forEach((navItem) => {
-      navItem.current = true
-    })
-  }
+
   const handleLogout = (): void => {
     logout()
     nav('/')
     toast.success('Log out successfully!')
   }
+
+  const handleActiveTab = (item: string): void => {
+    setCurrentNavItem(item)
+    setIsActive(true)
+  }
+
   return (
     <div>
       <Disclosure as="nav" className="bg-gray-800">
@@ -68,13 +71,14 @@ export const Header = (): JSX.Element => {
                         <Link
                           key={item.name}
                           to={item.href}
+                          aria-current={item.current ? 'page' : undefined}
                           className={classNames(
-                            item.current
+                            item.name === currentNavItem && isActive
                               ? 'bg-gray-900 text-white'
                               : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                             'rounded-md px-3 py-2 text-sm font-medium'
                           )}
-                          aria-current={item.current ? 'page' : undefined}
+                          onClick={() => handleActiveTab(item.name)}
                         >
                           {item.name}
                         </Link>
@@ -92,12 +96,12 @@ export const Header = (): JSX.Element => {
                     </span>
                   </button>
                   <button>
-                    <a
-                      href="/login"
+                    <Link
+                      to="/login"
                       className="text-sm font-semibold leading-6 text-white"
                     >
                       Login <span aria-hidden="true">→</span>
-                    </a>
+                    </Link>
                   </button>
 
                   <button
@@ -121,13 +125,12 @@ export const Header = (): JSX.Element => {
                     as="a"
                     href={item.href}
                     className={classNames(
-                      item.current
+                      item.name === currentNavItem && isActive // Apply active class when both conditions are met
                         ? 'bg-gray-900 text-white'
                         : 'text-gray-300 hover:bg-gray-700 hover:text-white',
                       'block rounded-md px-3 py-2 text-base font-medium'
                     )}
-                    aria-current={item.current ? 'page' : undefined}
-                    onClick={(e) => handleActive(e, item)}
+                    onClick={() => handleActiveTab(item.name)}
                   >
                     {item.name}
                   </Disclosure.Button>
