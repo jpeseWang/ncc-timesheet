@@ -1,14 +1,16 @@
-
+import { useNavigate } from 'react-router-dom'
 import { getAccessToken } from '../data/localStorage'
-import { NotPermission } from '../layouts/Error/NotPermission'
+
 interface PrivateRouteProps {
   children: JSX.Element;
 }
 
 export const PrivateRoute = (props: PrivateRouteProps): JSX.Element => {
+  const nagivate = useNavigate()
+  const { children } = props
   const accessToken: string | null = getAccessToken()
   if (accessToken === null) {
-    return <NotPermission />
+    nagivate('/login')
   }
-  return <>{props.children}</>
+  return children
 }

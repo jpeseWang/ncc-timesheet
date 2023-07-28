@@ -13,9 +13,9 @@ import {
   UsersIcon,
   XMarkIcon
 } from '@heroicons/react/24/outline'
-import { ContentExample } from '../../pages/ContentExample'
 import { MagnifyingGlassIcon } from '@heroicons/react/20/solid'
 import { Footer } from '../Footer/Footer'
+
 const navigation = [
   { name: 'Dashboard', href: '#', icon: HomeIcon, current: true },
   { name: 'Team', href: '#', icon: UsersIcon, current: false },
@@ -320,9 +320,7 @@ export const Sidebar = (): JSX.Element => {
           </div>
 
           <main className="py-10 top-0 z-40 flex mb-44">
-            <div className="px-4 sm:px-6 lg:px-8">
-              <ContentExample />
-            </div>
+            <div className="px-4 sm:px-6 lg:px-8">Project management</div>
           </main>
           <Footer />
         </div>

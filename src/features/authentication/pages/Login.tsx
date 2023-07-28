@@ -2,9 +2,9 @@ import { useState, useEffect, useContext } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { toast } from 'react-toastify'
 import ncclogo from '../../../assets/images/ncclogo.png'
-import { loginAPI } from '../services/AuthServices'
 import { UserContext } from '../contexts/UserContext'
 import { getAccessToken } from '../../../data/localStorage'
+import { loginAPI } from '../services/AuthServices'
 
 export const Login = (): JSX.Element => {
   const [username, setUsername] = useState('')
@@ -35,11 +35,9 @@ export const Login = (): JSX.Element => {
     if (accessToken.length > 0) {
       loginContext(username, accessToken)
     }
-
+    setLoadingSpin(false)
     toast.success('Login Successfully')
     nav('/home')
-    setLoadingSpin(false)
-    console.log('>> CHECK', res, 'TOKEN: ', accessToken)
   }
 
   return (
