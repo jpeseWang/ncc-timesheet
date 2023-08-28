@@ -1,8 +1,7 @@
-
 import { getAccessToken } from '../data/localStorage'
-import { NotPermission } from '../layouts/Error/NotPermission'
+import { NotPermission } from '../components/Error/NoPermission'
 interface PrivateRouteProps {
-  children: JSX.Element;
+  children: JSX.Element | JSX.Element[];
 }
 
 export const PrivateRoute = (props: PrivateRouteProps): JSX.Element => {

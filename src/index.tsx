@@ -4,7 +4,7 @@ import './index.css'
 import App from './App'
 import reportWebVitals from './reportWebVitals'
 import { BrowserRouter } from 'react-router-dom'
-import { UserProvider } from './features/authentication/contexts/UserContext'
+import { UserProvider } from './pages/authentication/contexts/UserProvider'
 const root = ReactDOM.createRoot(document.getElementById('root') as HTMLElement)
 root.render(
   <UserProvider>
